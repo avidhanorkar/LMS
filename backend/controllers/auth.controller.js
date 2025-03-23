@@ -1,5 +1,5 @@
 import User from "../models/user.model.js";
-import bcrypt from "bcryptjs";
+import bcrypt from "bcrypt"; 
 import jwt from "jsonwebtoken";
 
 const register = async (req, res) => {
@@ -20,7 +20,7 @@ const register = async (req, res) => {
       name,
       userName,
       email,
-      passowrd: hashedPassword,
+      password: hashedPassword, // Fixed typo: passowrd -> password
     });
 
     return res.status(201).json({
@@ -48,8 +48,8 @@ const login = async (req, res) => {
     }
 
     const isPasswordCorrect = await bcrypt.compare(
-      existingUser.password,
-      password
+      password, // Corrected the order of arguments
+      existingUser.password
     );
 
     if (!isPasswordCorrect) {
@@ -68,5 +68,18 @@ const login = async (req, res) => {
     const token = jwt.sign(payload, process.env.JWT_Secret, {
       expiresIn: "7d",
     });
-  } catch (error) {}
+  } catch (error) {
+    return res.status(500).json({
+      message: "Internal server error",
+      error: error.message,
+    });
+  }
 };
+
+
+const authController = {
+    register,
+    login,
+}
+
+export default authController;
