@@ -1,10 +1,12 @@
 import express from 'express';
 import lectureController from '../controllers/lecture.controller.js';
+import authMiddleware from '../middlewares/auth.middleware.js';
+import courseMiddleware from '../middlewares/course.middleware.js';
 
 const router = express.Router();
 
-router.post("/add", lectureController.addLecture);
-router.get("/get", lectureController.getLecture);
-router.get("/getAll", lectureController.getAll);
+router.post("/add", authMiddleware.isAuth, authMiddleware.isInstructor, courseMiddleware.isCourseInstructor, lectureController.addLecture);
+router.get("/get", authMiddleware.isAuth, authMiddleware.isInstructor, courseMiddleware.isCourseInstructor, lectureController.getLecture);
+router.get("/getAll", authMiddleware.isAuth, authMiddleware.isInstructor, courseMiddleware.isCourseInstructor, lectureController.getAll);
 
 export default router;

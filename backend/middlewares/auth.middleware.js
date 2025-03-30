@@ -1,3 +1,4 @@
+import { response } from 'express';
 import jwt from 'jsonwebtoken';
 
 const isAuth = (req, res, next) => {
@@ -33,8 +34,27 @@ const isAuth = (req, res, next) => {
     }
 };
 
+const isInstructor = (req, res, next) => {
+    try {
+        const {role} = req.user;
+
+        if (role === "instructor") {
+            return next();
+        }
+
+        return res.status(403).json({
+            message: "You are not the instructor"
+        })
+    } catch (error) {
+        return res.status(500).json({
+            message: "Internal Server Error",
+            error: error.message
+        });
+    }
+}
+
 const authMiddleware = {
-    isAuth
+    isAuth, isInstructor
 }
 
 export default authMiddleware

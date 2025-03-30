@@ -100,7 +100,7 @@ const submitQuiz = async (req, res) => {
         const { quizId, options } = req.body;
 
         if (!quizId || !options) {
-            return res.status(404).json({
+            return res.status(400).json({
                 message: "All fields are required"
             });
         }

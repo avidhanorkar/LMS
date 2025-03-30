@@ -106,10 +106,10 @@ const updateCourse = async (req, res) => {
 const purchaseCourse = async (req, res) => {
     try {
         const { courseId } = req.body;
-        const userId = req.user;
+        const userId = req.user.id;
 
         if (!courseId || !userId) {
-            return res.status(404).json({
+            return res.status(400).json({
                 message: "All fields are required"
             });
         }
