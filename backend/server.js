@@ -4,6 +4,8 @@ import connectDB from "./utils/db.js";
 import authRouter from "./routers/authRouters.js";
 import courseRouter from "./routers/courseRouters.js";
 import lectureRouter from "./routers/lectureRouters.js";
+import quizRouter from "./routers/quizRouters.js";
+
 
 configDotenv();
 const app = express();
@@ -15,6 +17,8 @@ app.listen(PORT, () => {
 });
 connectDB();
 
+// Routers
 app.use("/api/auth", authRouter);
 app.use("/api/course", courseRouter);
 app.use("/api/lecture", lectureRouter);
+app.use("/api/quiz", quizRouter)
