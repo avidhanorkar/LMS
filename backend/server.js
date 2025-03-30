@@ -3,6 +3,7 @@ import { configDotenv } from "dotenv";
 import connectDB from "./utils/db.js";
 import authRouter from "./routers/authRouters.js";
 import courseRouter from "./routers/courseRouters.js";
+import lectureRouter from "./routers/lectureRouters.js";
 
 configDotenv();
 const app = express();
@@ -15,4 +16,5 @@ app.listen(PORT, () => {
 connectDB();
 
 app.use("/api/auth", authRouter);
-app.use("/api/course", courseRouter)
+app.use("/api/course", courseRouter);
+app.use("/api/lecture", lectureRouter);
