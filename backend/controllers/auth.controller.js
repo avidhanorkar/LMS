@@ -1,10 +1,10 @@
 import User from "../models/user.model.js";
-import bcrypt from "bcrypt"; 
+import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
 const register = async (req, res) => {
   try {
-    const { name, userName, email, password } = req.body;
+    const { name, userName, email, password, role } = req.body;
 
     const existingUser = await User.findOne({ email: email });
 
@@ -20,7 +20,8 @@ const register = async (req, res) => {
       name,
       userName,
       email,
-      password: hashedPassword, // Fixed typo: passowrd -> password
+      password: hashedPassword,
+      role: role || "student"
     });
 
     return res.status(201).json({
@@ -48,7 +49,7 @@ const login = async (req, res) => {
     }
 
     const isPasswordCorrect = await bcrypt.compare(
-      password, // Corrected the order of arguments
+      password,
       existingUser.password
     );
 
@@ -68,6 +69,11 @@ const login = async (req, res) => {
     const token = jwt.sign(payload, process.env.JWT_Secret, {
       expiresIn: "7d",
     });
+
+    return res.status(200).json({
+      message: "User Logged In Successfully",
+      token: token
+    })
   } catch (error) {
     return res.status(500).json({
       message: "Internal server error",
@@ -78,8 +84,8 @@ const login = async (req, res) => {
 
 
 const authController = {
-    register,
-    login,
+  register,
+  login,
 }
 
 export default authController;
