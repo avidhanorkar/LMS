@@ -103,8 +103,53 @@ const updateCourse = async (req, res) => {
     }
 }
 
+const purchaseCourse = async (req, res) => {
+    try {
+        const { courseId } = req.body;
+        const userId = req.user;
+
+        if (!courseId || !userId) {
+            return res.status(404).json({
+                message: "All fields are required"
+            });
+        }
+
+        const user = await User.findById(userId);
+        if (!user) {
+            return res.status(404).json({
+                message: "User Not Found"
+            });
+        }
+
+        const course = await Course.findById(courseId);
+        if (!course) {
+            return res.status(404).json({
+                message: "Course Not Found"
+            });
+        }
+
+        user.enrolledCourses.push(course._id);
+        await user.save();
+
+        course.enrolledStudents.push(user._id);
+        await course.save();
+
+        return res.status(200).json({
+            message: "User Purchased the course successfully",
+            user: user.enrolledCourses,
+            course: course.enrolledStudents
+        })
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({
+            message: "Internal Server Error || Updating the course",
+            error: error.message
+        })
+    }
+}
+
 const courseController = {
-    createCourse, getAllCourses, getCourseById, updateCourse
+    createCourse, getAllCourses, getCourseById, updateCourse, purchaseCourse
 }
 
 export default courseController;
