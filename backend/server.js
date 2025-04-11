@@ -5,10 +5,12 @@ import authRouter from "./routers/authRouters.js";
 import courseRouter from "./routers/courseRouters.js";
 import lectureRouter from "./routers/lectureRouters.js";
 import quizRouter from "./routers/quizRouters.js";
-
+import cors from "cors";
 
 configDotenv();
 const app = express();
+app.use(cors());
+
 const PORT = process.env.PORT;
 app.use(express.json());
 
