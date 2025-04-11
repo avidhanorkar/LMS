@@ -18,19 +18,19 @@ const Register = () => {
                 <form className='space-y-4'>
                     <div>
                         <Label htmlFor="name" className='block text-sm font-medium'>Name</Label>
-                        <Input placeholder="Enter your name" type="text" id="name" className='mt-1 block w-full p-2 border border-gray-300 rounded-md' required />
+                        <Input placeholder="Enter your name" type="text" id="name" className='mt-1 block w-full p-2 border border-gray-500 rounded-md' required />
                     </div>
                     <div>
                         <Label htmlFor="username" className='block text-sm font-medium'>Username</Label>
-                        <Input placeholder="Enter your username" type="text" id="username" className='mt-1 block w-full p-2 border border-gray-300 rounded-md' required />
+                        <Input placeholder="Enter your username" type="text" id="username" className='mt-1 block w-full p-2 border border-gray-500 rounded-md' required />
                     </div>
                     <div>
                         <Label htmlFor="email" className='block text-sm font-medium'>Email</Label>
-                        <Input placeholder="Enter your email" type="email" id="email" className='mt-1 block w-full p-2 border border-gray-300 rounded-md' required />
+                        <Input placeholder="Enter your email" type="email" id="email" className='mt-1 block w-full p-2 border border-gray-500 rounded-md' required />
                     </div>
                     <div>
                         <Label htmlFor="password" className='block text-sm font-medium'>Password</Label>
-                        <Input placeholder="Enter the password" type="password" id="password" className='mt-1 block w-full p-2 border border-gray-300 rounded-md' required />
+                        <Input placeholder="Enter the password" type="password" id="password" className='mt-1 block w-full p-2 border border-gray-500 rounded-md' required />
                     </div>
                     <button type="submit" className='w-full mt-2 bg-white text-black font-semibold py-2 rounded-md cursor-pointer'>Login</button>
                 </form>
