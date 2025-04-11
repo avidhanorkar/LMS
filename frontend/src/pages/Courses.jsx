@@ -1,20 +1,17 @@
 import Card from '@/components/Course/Card'
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom';
 
 const Courses = () => {
 
     const [data, setData] = useState([]);
-    const [error, setError] = useState(null);
-    const [loading, setLoading] = useState(true);
 
     const getCourses = async () => {
         const response = await axios.get("http://localhost:3000/api/course/getAll");
         const courses = response.data.courses;
         console.log(courses);
         setData(courses);
-        
-        setLoading(false);
     }
 
     useEffect(() => {
@@ -29,7 +26,9 @@ const Courses = () => {
              */}
             <div className="pt-20 grid grid-cols-3 gap-8">
                 {data.map((course) => (
-                    <Card img={course.thumbnail} key={course._id} title={course.courseName} desc={course.courseDescription} author={course.instructor} lectures={course.lectures.length} students={course.enrolledStudents.length} price={course.coursePrice} id={course._id} />
+                    <Link to={`/course/${course._id}`} key={course._id}>
+                        <Card img={course.thumbnail} key={course._id} title={course.courseName} desc={course.courseDescription} author={course.instructor.name} lectures={course.lectures.length} students={course.enrolledStudents.length} price={course.coursePrice} id={course._id} />
+                    </Link>
                 ))}
             </div>
         </div>

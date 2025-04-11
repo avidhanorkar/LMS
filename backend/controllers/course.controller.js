@@ -37,7 +37,7 @@ const createCourse = async (req, res) => {
 
 const getAllCourses = async (req, res) => {
     try {
-        const courses = await Course.find();
+        const courses = await Course.find().populate("instructor");
 
         return res.status(200).json({
             message: "Courses Retrieved Successfully",

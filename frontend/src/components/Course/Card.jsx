@@ -30,7 +30,7 @@ const Card = ({ title, author, desc, students, lectures, price, id, img }) => {
 
                 <div className='text-white flex flex-row gap-3 items-center justify-between'>
                     <p>$ {price}</p>
-                    <Link to={`/course/${id}`}><Button className={'text-black bg-white'}>View Course <ArrowRight /></Button></Link>
+                    <Link to={`/course/${id}`}><Button className={'cursor-pointer text-black bg-white'}>View Course <ArrowRight /></Button></Link>
                 </div>
             </div>
         </div>
