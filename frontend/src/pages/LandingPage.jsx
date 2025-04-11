@@ -1,3 +1,4 @@
+import CTA from '@/components/LandingPage/CTA'
 import Features from '@/components/LandingPage/Features'
 import Hero from '@/components/LandingPage/Hero'
 import Testimonials from '@/components/LandingPage/Testimonials'
@@ -9,6 +10,7 @@ const LandingPage = () => {
         <Hero />
         <Features />
         <Testimonials />
+        <CTA />
     </div>
   )
 }
