@@ -1,5 +1,6 @@
 import User from '../models/user.model.js';
 import Course from '../models/course.model.js';
+import { get } from 'mongoose';
 
 const createCourse = async (req, res) => {
     try {
@@ -103,6 +104,37 @@ const updateCourse = async (req, res) => {
     }
 }
 
+const getEnrolledCourses = async (req, res) => {
+    try {
+        const userId = req.user.id;
+        const user = await User.findById(userId).populate('enrolledCourses');
+
+        if (!user) {
+            return res.status(404).json({
+                message: "User not found"
+            })
+        }
+
+        const enrolledCourses = user.enrolledCourses;
+        if (enrolledCourses.length === 0) {
+            return res.status(404).json({
+                message: "No enrolled courses found"
+            })
+        }
+
+        return res.status(200).json({
+            message: "Enrolled courses retrieved successfully",
+            courses: enrolledCourses
+        })
+    } catch (error) {
+        console.log("Error in getting enrolled courses: ", error);
+        return res.status(500).json({
+            message: "Internal Server Error",
+            error: error.message
+        })
+    }
+}
+
 const purchaseCourse = async (req, res) => {
     try {
         const { courseId } = req.body;
@@ -149,7 +181,7 @@ const purchaseCourse = async (req, res) => {
 }
 
 const courseController = {
-    createCourse, getAllCourses, getCourseById, updateCourse, purchaseCourse
+    createCourse, getAllCourses, getCourseById, updateCourse, purchaseCourse, getEnrolledCourses
 }
 
 export default courseController;

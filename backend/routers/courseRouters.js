@@ -9,5 +9,6 @@ router.get("/getAll", courseController.getAllCourses);
 router.get("/getById", courseController.getCourseById);
 router.patch("/updateCourse", authMiddleware.isAuth, courseMiddleware.isCourseInstructor, courseController.updateCourse);
 router.post("/purchase", authMiddleware.isAuth, courseController.purchaseCourse);
+router.get("/getEnrolledCourses", authMiddleware.isAuth, courseController.getEnrolledCourses);
 
 export default router;

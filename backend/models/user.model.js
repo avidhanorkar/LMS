@@ -31,6 +31,11 @@ const userSchema = new mongoose.Schema(
         ref: "Course",
       },
     ],
+    image: {
+      type: String,
+      default:
+        "https://res.cloudinary.com/dqzv2m6c8/image/upload/v1698327062/default_user_1_vxk1gq.png",
+    },
   },
   {
     timestamps: true,
