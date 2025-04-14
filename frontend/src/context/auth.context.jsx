@@ -14,7 +14,7 @@ const AuthProvider = ({ children }) => {
                 const decodedUser = jwtDecode(userData);
                 setUser(decodedUser);
             } catch (error) {
-                console.error("Invalid token", error);
+                console.log("Invalid token", error);
                 localStorage.removeItem("token");
             }
         }

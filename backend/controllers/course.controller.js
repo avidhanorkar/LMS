@@ -55,7 +55,7 @@ const getAllCourses = async (req, res) => {
 
 const getCourseById = async (req, res) => {
     try {
-        const { courseId } = req.body;
+        const { courseId } = req.params;
 
         const course = await Course.findById(courseId).populate('instructor');
 
@@ -116,12 +116,6 @@ const getEnrolledCourses = async (req, res) => {
         }
 
         const enrolledCourses = user.enrolledCourses;
-        if (enrolledCourses.length === 0) {
-            return res.status(404).json({
-                message: "No enrolled courses found"
-            })
-        }
-
         return res.status(200).json({
             message: "Enrolled courses retrieved successfully",
             courses: enrolledCourses
