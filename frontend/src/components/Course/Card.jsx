@@ -4,7 +4,7 @@ import { Button } from '../ui/button'
 import { Link } from 'react-router-dom'
 const Card = ({ title, author, desc, students, lectures, price, id, img }) => {
     return (
-        <div className='w-[25vw] min-h-[60vh] bg-[black] rounded-lg'>
+        <div className='hover:shadow-xl shadow-gray-500 hover:-translate-y-1 hover:-translate-x-1 duration-500 w-[25vw] min-h-[60vh] bg-[black] rounded-lg'>
             <img src={img} className='bg-blue-600 h-[30vh] w-full rounded-t-lg' alt="" />
 
             <div className='p-5 flex flex-col gap-4'>
