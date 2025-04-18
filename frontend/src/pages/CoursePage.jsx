@@ -1,12 +1,33 @@
 import { Button } from '@/components/ui/button';
+import { AuthContext } from '@/context/auth.context';
 import { ArrowLeft, BookOpen, Clock, Download, ExternalLink, NotebookPen, ScreenShare, User } from 'lucide-react'
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { useParams, Link } from 'react-router-dom'
+import axios from 'axios';
 
 const CoursePage = () => {
     const { id } = useParams();
     const [course, setCourse] = useState(null); // Initialize course state to null
     const [loading, setLoading] = useState(true); // Add a loading state
+    const token = localStorage.getItem('token');
+    const { user } = useContext(AuthContext);
+    const [bought, setBought] = useState(false);
+
+    const handleClick = async () => {
+        const response = await fetch(`http://localhost:3000/api/course/purchase`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify({ courseId: id })
+        })
+
+        if (response.ok) {
+            const data = await response.json();
+            window.location.href = `/mylearning`;
+        }
+    }
 
     const getCourse = async () => {
         try {
@@ -22,7 +43,11 @@ const CoursePage = () => {
             }
 
             const data = await response.json();
-            console.log(data);
+            if (data.course.enrolledStudents?.includes(user.user.id)) {
+                setBought(true);
+            }
+            
+
             setCourse(data.course);
             setLoading(false); // Set loading to false after data is fetched
         } catch (error) {
@@ -82,8 +107,14 @@ const CoursePage = () => {
                     <p className='text-white text-3xl font-bold '>$ {course.coursePrice}</p>
                     <p className='text-gray-400 pt-2'>One time payment, lifetime access</p>
 
-                    <div className=''>
-                        <Button className={'bg-white text-black hover:shadow-xl text-md shadow-slate-800 cursor-pointer w-full mt-5'}>Enroll Now</Button>
+                    <div className='btn'>
+                        <Button
+                            onClick={!bought ? handleClick : () => window.location.href = `/mylearning`}
+                            className="bg-white text-black hover:shadow-xl text-md shadow-slate-800 cursor-pointer w-full mt-5"
+                        >
+                            {!bought ? 'Enroll Now' : 'Go to Course'}
+                        </Button>
+
                     </div>
 
                     <div className='flex flex-col text-white mt-5'>
@@ -95,7 +126,7 @@ const CoursePage = () => {
                             <p className='text-white flex text-md flex-row items-center gap-2'><NotebookPen />{course.quizzes?.length || 0} quizzes</p>
                             <p className='text-white flex text-md flex-row items-center gap-2'><Clock /> Lifetime Access</p>
                             <p className='text-white flex text-md flex-row items-center gap-2'>
-                                <ScreenShare/>
+                                <ScreenShare />
                                 Access on mobile and desktop</p>
                             <p className='text-white flex text-md flex-row items-center gap-2'><Download />Certificate on course completion</p>
 
