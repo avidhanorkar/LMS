@@ -109,7 +109,7 @@ const CoursePage = () => {
 
                     <div className='btn'>
                         <Button
-                            onClick={!bought ? handleClick : () => window.location.href = `/mylearning`}
+                            onClick={!bought ? handleClick : () => window.location.href = `/course/${id}`}
                             className="bg-white text-black hover:shadow-xl text-md shadow-slate-800 cursor-pointer w-full mt-5"
                         >
                             {!bought ? 'Enroll Now' : 'Go to Course'}

@@ -12,6 +12,7 @@ import CoursePage from './pages/CoursePage'
 
 import { useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
+import LearnCourse from './pages/LearnCourse'
 
 const ScrollToTop = () => {
   const { pathname } = useLocation()
@@ -34,6 +35,7 @@ const App = () => {
           <Route path="/courses" element={<Courses />} />
           <Route path="/mylearning" element={<MyCourses />} />
           <Route path="/course/:id" element={<CoursePage />} />
+          <Route path="/course/learn/:id" element={<LearnCourse />} />
         </Routes>
         <Footer />
       </AuthProvider>
