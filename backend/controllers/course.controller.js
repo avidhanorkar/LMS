@@ -1,6 +1,5 @@
 import User from '../models/user.model.js';
 import Course from '../models/course.model.js';
-import { get } from 'mongoose';
 
 const createCourse = async (req, res) => {
     try {
@@ -151,6 +150,12 @@ const purchaseCourse = async (req, res) => {
         if (!course) {
             return res.status(404).json({
                 message: "Course Not Found"
+            });
+        }
+
+        if (course.enrolledStudents.includes(userId)) {
+            return res.status(400).json({
+                message: "User already enrolled in this course"
             });
         }
 
