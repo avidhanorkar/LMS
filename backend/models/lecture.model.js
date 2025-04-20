@@ -15,6 +15,9 @@ const lectureSchema = new mongoose.Schema(
       ref: "Course",
       required: true
     },
+    summary: {
+      type: String,
+    }
   },
   {
     timestamps: true,

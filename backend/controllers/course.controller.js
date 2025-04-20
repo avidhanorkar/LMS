@@ -179,6 +179,8 @@ const purchaseCourse = async (req, res) => {
     }
 }
 
+
+
 const courseController = {
     createCourse, getAllCourses, getCourseById, updateCourse, purchaseCourse, getEnrolledCourses
 }

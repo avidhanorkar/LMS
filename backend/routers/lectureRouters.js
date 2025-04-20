@@ -6,7 +6,9 @@ import courseMiddleware from '../middlewares/course.middleware.js';
 const router = express.Router();
 
 router.post("/add", authMiddleware.isAuth, authMiddleware.isInstructor, courseMiddleware.isCourseInstructor, lectureController.addLecture);
-router.get("/get", authMiddleware.isAuth, authMiddleware.isInstructor, courseMiddleware.isCourseInstructor, lectureController.getLecture);
-router.get("/getAll", authMiddleware.isAuth, authMiddleware.isInstructor, courseMiddleware.isCourseInstructor, lectureController.getAll);
+router.get("/get", authMiddleware.isAuth,  lectureController.getLecture);
+router.get("/getAll", authMiddleware.isAuth,  lectureController.getAll);
+router.get("/getAudio/:id", lectureController.createSummary);
+
 
 export default router;
